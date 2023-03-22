@@ -9,6 +9,10 @@ class Profile(models.Model):
     surname = models.CharField(max_length=50, verbose_name='фамилия')
     avatar = models.ImageField(upload_to='uploads/avatars/', null=True, blank=True, verbose_name='аватар')
 
+    class Meta:
+        verbose_name_plural = 'профайлы'
+        verbose_name = 'профайл'
+
 
 class Goods(models.Model):
     title = models.CharField(max_length=30, verbose_name='наименование')
@@ -22,11 +26,20 @@ class Goods(models.Model):
     was_bought_times = models.IntegerField(default=0, verbose_name='количетсво покупок этого товара')
     category = models.ManyToManyField('Category', on_delete=models.CASCADE, verbose_name='категории')
 
+    class Meta:
+        verbose_name_plural = 'товары'
+        verbose_name = 'товары'
+
 
 class Category(models.Model):
     title = models.CharField(max_length=30, verbose_name='наименование')
     parent_category = models.ForeignKey('Category', models.SET_NULL, blank=True, null=True, verbose_name='родительская категория')
     image = models.ImageField(upload_to='uploads/categoey_img/', null=True, blank=True, verbose_name='иконка')
+
+    class Meta:
+        verbose_name_plural = 'категории'
+        verbose_name = 'категория'
+
 
 
 class Purchase(models.Model):
@@ -36,14 +49,23 @@ class Purchase(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='пользователь')
     order = models.ForeignKey('Order', on_delete=models.CASCADE, verbose_name='заказ')
 
+    class Meta:
+        verbose_name_plural = 'покупки'
+        verbose_name = 'покупка'
+
 
 class Order(models.Model):
     statuses = {'basket': 'в корзине', 'paid': 'оплачен', 'not_paid': 'не оплачен'}
     purchases = models.ManyToOneRel('Purchase', on_delete=models.CASCADE, verbose_name='покупки')
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='пользователь')
-    delivery = models.ForeignKey('Delivery', on_delete=models.SET_NULL(), verbose_name='доставка')
+    delivery = models.ForeignKey('Delivery', on_delete=models.SET_NULL, verbose_name='доставка')
     status = models.CharField(choices=statuses, default='basket', verbose_name='статус')
     data = models.DateTimeField(auto_now=True, verbose_name='дата заказа')
+
+    class Meta:
+        verbose_name_plural = 'заказы'
+        verbose_name = 'заказ'
+
 
 
 class Review(models.Model):
@@ -53,9 +75,18 @@ class Review(models.Model):
     text = models.TextField(max_length=1000, verbose_name='полное описание товара')
     rate = models.IntegerField(default=1, verbose_name='оценка')
 
+    class Meta:
+        verbose_name_plural = 'отзывы'
+        verbose_name = 'отзыв'
+
+
 
 class Delivery(models.Model):
     title = models.CharField(max_length=30, verbose_name='название вида доставки')
     price = models.FloatField(verbose_name='стоимость доставки')
     cost_for_free = models.FloatField(verbose_name='минимальная стоимость заказа для бесплатной доставки')
+
+    class Meta:
+        verbose_name_plural = 'доставки'
+        verbose_name = 'доставка'
 
