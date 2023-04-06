@@ -58,7 +58,7 @@ class Order(models.Model):
     statuses = {'basket': 'в корзине', 'paid': 'оплачен', 'not_paid': 'не оплачен'}
     purchases = models.ManyToOneRel('Purchase', on_delete=models.CASCADE, verbose_name='покупки')
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='пользователь')
-    delivery = models.ForeignKey('Delivery', on_delete=models.SET_NULL, verbose_name='доставка')
+    delivery = models.ForeignKey('Delivery', on_delete=models.SET_NULL, verbose_name='доставка', null=True, blank=True)
     status = models.CharField(choices=statuses, default='basket', verbose_name='статус')
     data = models.DateTimeField(auto_now=True, verbose_name='дата заказа')
 

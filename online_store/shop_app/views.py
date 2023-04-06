@@ -1,3 +1,95 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.views import LoginView, LogoutView
+from django.views.generic import TemplateView
+from django.views import View
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import FormView
+from shop_app.models import Goods, Category, Order
 
-# Create your views here.
+
+class Login(LoginView):
+    template_name = ''
+
+
+class Logout(LogoutView):
+    template_name = ''
+
+
+def registration(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            # profile = ProfileForm({'user': user})
+        # if profile.is_valid():
+        #     profile.save()
+        # return redirect('/')
+    else:
+        form = UserCreationForm()
+    return render(request, '', {'form': form})
+
+
+class MainPage(TemplateView):
+    template_name = ''
+
+
+class Catalog(ListView):
+    model = Goods
+    template_name = ''
+
+
+class Product(DetailView):
+    model = Goods
+    template_name = ''
+
+
+class Category(DetailView):
+    model = Category
+    template_name = ''
+
+
+class Basket(View):
+    pass
+
+
+class MakeOrderInfo(View):
+    pass
+
+
+class MakeOrderDelivery(View):
+    pass
+
+
+class MakeOrderPaymentType(View):
+    pass
+
+
+class MakeOrderPayment(View):
+    pass
+
+
+class MakeOrderConformation(View):
+    pass
+
+
+class PersonalPage(DetailView):
+    pass
+
+
+class EditProfile(FormView):
+    pass
+
+
+class OrderHistory(View):
+    pass
+
+
+class OrderPage(DetailView):
+    model = Order
