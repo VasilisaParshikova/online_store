@@ -37,7 +37,7 @@ def registration(request):
 
 
 class MainPage(TemplateView):
-    template_name = ''
+    template_name = 'shop_app/index.html'
 
 
 class Catalog(ListView):
@@ -50,7 +50,7 @@ class Product(DetailView):
     template_name = ''
 
 
-class Category(DetailView):
+class CategoryView(DetailView):
     model = Category
     template_name = ''
 
