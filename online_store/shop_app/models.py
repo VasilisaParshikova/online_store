@@ -13,6 +13,9 @@ class Profile(models.Model):
         verbose_name_plural = 'профайлы'
         verbose_name = 'профайл'
 
+    def __str__(self):
+        return f'{self.name} {self.avatar} профайл'
+
 
 class Goods(models.Model):
     title = models.CharField(max_length=30, verbose_name='наименование')
@@ -24,21 +27,27 @@ class Goods(models.Model):
     limited_edition = models.BooleanField(default=False, verbose_name='товар ограниченного тиража')
     sort_index = models.IntegerField(default=0, verbose_name='индекс сортировки')
     was_bought_times = models.IntegerField(default=0, verbose_name='количетсво покупок этого товара')
-    category = models.ManyToManyField('Category', on_delete=models.CASCADE, verbose_name='категории')
+    category = models.ManyToManyField('Category', verbose_name='категории')
 
     class Meta:
         verbose_name_plural = 'товары'
         verbose_name = 'товары'
 
+    def __str__(self):
+        return self.title
+
 
 class Category(models.Model):
     title = models.CharField(max_length=30, verbose_name='наименование')
-    parent_category = models.ForeignKey('Category', models.SET_NULL, blank=True, null=True, verbose_name='родительская категория')
+    parent_category = models.ForeignKey('Category', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='родительская категория')
     image = models.ImageField(upload_to='uploads/categoey_img/', null=True, blank=True, verbose_name='иконка')
 
     class Meta:
         verbose_name_plural = 'категории'
         verbose_name = 'категория'
+
+    def __str__(self):
+        return self.title
 
 
 
@@ -53,24 +62,29 @@ class Purchase(models.Model):
         verbose_name_plural = 'покупки'
         verbose_name = 'покупка'
 
+    def __str__(self):
+        return f'{self.goods} куплено {self.user}'
+
 
 class Order(models.Model):
-    statuses = {'basket': 'в корзине', 'paid': 'оплачен', 'not_paid': 'не оплачен'}
-    purchases = models.ManyToOneRel('Purchase', on_delete=models.CASCADE, verbose_name='покупки')
+    statuses = [('basket', 'в корзине'), ('paid', 'оплачен'), ('not_paid', 'не оплачен')]
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='пользователь')
     delivery = models.ForeignKey('Delivery', on_delete=models.SET_NULL, verbose_name='доставка', null=True, blank=True)
-    status = models.CharField(choices=statuses, default='basket', verbose_name='статус')
+    status = models.CharField(choices=statuses, max_length=30, default='basket', verbose_name='статус')
     data = models.DateTimeField(auto_now=True, verbose_name='дата заказа')
 
     class Meta:
         verbose_name_plural = 'заказы'
         verbose_name = 'заказ'
 
+    def __str__(self):
+        return f'заказ {self.id} от {self.data} пользователя {self.user}'
+
 
 
 class Review(models.Model):
     goods = models.ForeignKey('Goods', on_delete=models.CASCADE, verbose_name='товар')
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='пользователь')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь')
     title = models.CharField(max_length=30, verbose_name='заголовок')
     text = models.TextField(max_length=1000, verbose_name='полное описание товара')
     rate = models.IntegerField(default=1, verbose_name='оценка')
@@ -78,6 +92,9 @@ class Review(models.Model):
     class Meta:
         verbose_name_plural = 'отзывы'
         verbose_name = 'отзыв'
+
+    def __str__(self):
+        return f'Отзыв о {self.goods} с номером {self.id}'
 
 
 
@@ -89,4 +106,7 @@ class Delivery(models.Model):
     class Meta:
         verbose_name_plural = 'доставки'
         verbose_name = 'доставка'
+
+    def __str__(self):
+        return self.title
 

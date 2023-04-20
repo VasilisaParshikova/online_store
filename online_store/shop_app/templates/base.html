@@ -1,6 +1,7 @@
 <!--END-->
 <!--END-->
 <!DOCTYPE html>
+{% load static %}
 <!--[if IE 7]>
 <html class="ie7" lang="ru">
 <![endif]-->
@@ -51,13 +52,13 @@
       | для правильного отображения сайта.
   -->
     <header class="Header">
-       {% include 'templates/header.html' %}
+       {% include 'header.html' %}
     </header>
 
 {% block content %} {% endblock content %}
 
     <footer class="Footer">
-        {% include 'templates/footer.html' %}
+        {% include 'footer.html' %}
     </footer>
     <!--+Middle-->
     <!--    +div.-top-->

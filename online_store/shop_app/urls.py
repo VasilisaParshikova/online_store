@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('', views.MainPage.as_view(), name='main'),
@@ -19,4 +21,4 @@ urlpatterns = [
     path('lk/edit', views.EditProfile.as_view(), name='edit_profile'),
     path('lk/orderhostiry', views.OrderHistory.as_view(), name='order_history'),
     path('lk/order<int:pk>', views.OrderPage.as_view(), name='order_page')
-]
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

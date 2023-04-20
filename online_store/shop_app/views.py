@@ -11,48 +11,64 @@ from shop_app.models import Goods, Category, Order
 
 
 class Login(LoginView):
-    template_name = ''
+    pass
+    #template_name = ''
 
 
 class Logout(LogoutView):
-    template_name = ''
+    pass
+    #template_name = ''
 
 
 def registration(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
-            login(request, user)
+    pass
+#    if request.method == 'POST':
+#        form = UserCreationForm(request.POST)
+#        if form.is_valid():
+#            form.save()
+#            username = form.cleaned_data.get('username')
+#            password = form.cleaned_data.get('password1')
+#            user = authenticate(username=username, password=password)
+#            login(request, user)
             # profile = ProfileForm({'user': user})
         # if profile.is_valid():
         #     profile.save()
         # return redirect('/')
-    else:
-        form = UserCreationForm()
-    return render(request, '', {'form': form})
+#    else:
+#        form = UserCreationForm()
+#    return render(request, '', {'form': form})
 
 
 class MainPage(TemplateView):
     template_name = 'shop_app/index.html'
 
+    def get_context_data(self, **kwargs):
+        context = super(MainPage, self).get_context_data(**kwargs)
+        category_list = list(Category.objects.all())
+        category_dict = dict()
+        for item in category_list:
+            if item.parent_category:
+                category_dict[item.parent_category].append(item)
+            else:
+                category_dict[item] = []
+        context['category'] = category_dict
+        print(category_dict.values())
+        return context
+
 
 class Catalog(ListView):
     model = Goods
-    template_name = ''
+    #template_name = ''
 
 
 class Product(DetailView):
     model = Goods
-    template_name = ''
+    #template_name = ''
 
 
 class CategoryView(DetailView):
     model = Category
-    template_name = ''
+    #template_name = ''
 
 
 class Basket(View):
