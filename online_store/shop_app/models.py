@@ -22,16 +22,29 @@ class Goods(models.Model):
     Photo = models.ImageField(upload_to='uploads/products_photo/', null=True, blank=True,
                               verbose_name='изображение товара')
     short_info = models.CharField(max_length=150, verbose_name='краткое описание товара')
-    full_info = models.TextField(max_length=1000, verbose_name='полное описание товара')
+    full_info = models.TextField(max_length=10000, verbose_name='полное описание товара')
     price = models.FloatField(verbose_name='цена')
     limited_edition = models.BooleanField(default=False, verbose_name='товар ограниченного тиража')
     sort_index = models.IntegerField(default=0, verbose_name='индекс сортировки')
     was_bought_times = models.IntegerField(default=0, verbose_name='количетсво покупок этого товара')
-    category = models.ManyToManyField('Category', verbose_name='категории')
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name='категории')
+    company = models.ForeignKey('Company', on_delete=models.CASCADE, null=True, blank=True,
+                                verbose_name='компания производитель')
 
     class Meta:
         verbose_name_plural = 'товары'
         verbose_name = 'товары'
+
+    def __str__(self):
+        return self.title
+
+
+class Company(models.Model):
+    title = models.CharField(max_length=30, verbose_name='наименование')
+
+    class Meta:
+        verbose_name_plural = 'фирмы'
+        verbose_name = 'фирма'
 
     def __str__(self):
         return self.title

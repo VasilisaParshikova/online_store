@@ -92,7 +92,7 @@
                              <div class="CategoriesButton-content">
                             {% for cat, sub in category.items %}
                             <div class="CategoriesButton-link"><a href="#">
-                                    <div class="CategoriesButton-icon"><img src="{% static '{{cat.image.url}}' %}" alt="3.svg" />
+                                    <div class="CategoriesButton-icon"><img src="{{cat.image.url}}" width="20" height="20" alt="3.svg" />
                                     </div><span class="CategoriesButton-text">{{cat.title}}</span>
                                 </a><a class="CategoriesButton-arrow" href="#"></a>
 
@@ -101,7 +101,7 @@
                                         {% for subcat in sub %}
                                     <a class="CategoriesButton-link" href="#">
 
-                                        <div class="CategoriesButton-icon"><img src="{% static '{{subcat.image.url}}' %}" alt="1.svg" />
+                                        <div class="CategoriesButton-icon"><img src="{{subcat.image.url}}" width="20" height="20" alt="1.svg" />
                                         </div><span class="CategoriesButton-text">{{subcat.title}}</span>
                                     </a>
                                         {% endfor %}
