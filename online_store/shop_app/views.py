@@ -63,6 +63,7 @@ class MainPage(TemplateView):
 class Catalog(ListView):
     model = Goods
     template_name = 'shop_app/catalog.html'
+    paginate_by = 12
 
     def get_context_data(self, **kwargs):
         context = super(Catalog, self).get_context_data(**kwargs)

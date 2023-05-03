@@ -21,6 +21,9 @@
                           {% if item.Photo %}
                         <div class="Slider-img"><img src="{{ item.Photo.url }}" height="300" width="300" alt="slider.png"/>
                         </div>
+                              {% else %}
+                              <div class="Slider-img"><img src="{% static 'assets/img/content/no_photo.png' %}" height="300" width="300" alt="slider.png"/>
+                        </div>
                           {% endif %}
                       </div>
                     </div>

@@ -9,7 +9,11 @@
                     <div class="ProductCard">
                         <div class="ProductCard-look">
                             <div class="ProductCard-photo">
+                                {% if object.Photo %}
                                 <img src="{{ object.Photo.url }}" alt="bigGoods.png" />
+                                {% else %}
+                                <img src="{% static 'assets/img/content/no_photo.png' %}" alt="bigGoods.png" />
+                                {% endif %}
                             </div>
                         </div>
                         <div class="ProductCard-desc">
