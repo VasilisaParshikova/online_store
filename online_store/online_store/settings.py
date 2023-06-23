@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shop_app'
+    'shop_app',
+    'user_app',
+    'orders_app'
 ]
 
 MIDDLEWARE = [
@@ -67,6 +69,10 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    'user_app.auth.EmailAuthBackend',
 ]
 
 WSGI_APPLICATION = 'online_store.wsgi.application'

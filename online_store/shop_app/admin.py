@@ -10,6 +10,10 @@ class GoodsAdmin(admin.ModelAdmin):
 class CompanyAdmin(admin.ModelAdmin):
     pass
 
+class ReviewAdmin(admin.ModelAdmin):
+    pass
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Goods, GoodsAdmin)
 admin.site.register(Company, CompanyAdmin)
+admin.site.register(Review, ReviewAdmin)

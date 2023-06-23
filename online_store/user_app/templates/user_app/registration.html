@@ -1,0 +1,36 @@
+{% extends 'base1.html' %}
+{% load static %}
+{% block content %}
+<div class="wrapper">
+                <div class="header">
+                    <h3 class="sign-in">Регистрация</h3>
+
+                </div>
+                <div class="clear"></div>
+                <form method="post">
+                    {% csrf_token %}
+                    {% if error %}
+                    <h4 style="color: #df3349">{{ error }}</h4>
+                    {% endif %}
+                    <div>
+                        <input class="user-input" type="text" name="first_name" id="first_name" placeholder="ФИО" />
+                    </div>
+                    <div>
+                        <input class="user-input" type="email" name="username" id="username" placeholder="E-mail" />
+                    </div>
+                    <div>
+                        <input type="password" name="password1" id="password1" placeholder="Пароль" />
+                    </div>
+                    <div>
+                        <input type="password" name="password2" id="password2" placeholder="Подтверждение пароля" />
+                    </div>
+                    <input type="submit" value="Зарегистрироваться" />
+
+
+                    <a class="registr" href="login">
+                        Вход
+                    </a>
+                    <div class="clear"></div>
+                </form>
+            </div>
+{% endblock %}

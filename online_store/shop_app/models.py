@@ -1,20 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='пользователь')
-    name = models.CharField(max_length=30, verbose_name='имя')
-    patronymic = models.CharField(max_length=30, verbose_name='отчество')
-    surname = models.CharField(max_length=50, verbose_name='фамилия')
-    avatar = models.ImageField(upload_to='uploads/avatars/', null=True, blank=True, verbose_name='аватар')
-
-    class Meta:
-        verbose_name_plural = 'профайлы'
-        verbose_name = 'профайл'
-
-    def __str__(self):
-        return f'{self.name} {self.avatar} профайл'
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Goods(models.Model):
@@ -23,9 +9,10 @@ class Goods(models.Model):
                               verbose_name='изображение товара')
     short_info = models.CharField(max_length=150, verbose_name='краткое описание товара')
     full_info = models.TextField(max_length=10000, verbose_name='полное описание товара')
-    price = models.FloatField(verbose_name='цена')
+    price = models.IntegerField(validators=[MinValueValidator(1)], verbose_name='цена')
     limited_edition = models.BooleanField(default=False, verbose_name='товар ограниченного тиража')
-    sort_index = models.IntegerField(default=0, verbose_name='индекс сортировки')
+    sort_index = models.IntegerField(default=0, validators=[MaxValueValidator(10), MinValueValidator(0)],
+                                     verbose_name='индекс сортировки')
     was_bought_times = models.IntegerField(default=0, verbose_name='количетсво покупок этого товара')
     category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name='категории')
     company = models.ForeignKey('Company', on_delete=models.CASCADE, null=True, blank=True,
@@ -63,63 +50,21 @@ class Category(models.Model):
         return self.title
 
 
-
-class Purchase(models.Model):
-    goods = models.ForeignKey('Goods', on_delete=models.CASCADE, verbose_name='товар')
-    amount = models.IntegerField(verbose_name='количество')
-    cost = models.FloatField(verbose_name='стоимость')
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='пользователь')
-    order = models.ForeignKey('Order', on_delete=models.CASCADE, verbose_name='заказ')
-
-    class Meta:
-        verbose_name_plural = 'покупки'
-        verbose_name = 'покупка'
-
-    def __str__(self):
-        return f'{self.goods} куплено {self.user}'
-
-
-class Order(models.Model):
-    statuses = [('basket', 'в корзине'), ('paid', 'оплачен'), ('not_paid', 'не оплачен')]
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='пользователь')
-    delivery = models.ForeignKey('Delivery', on_delete=models.SET_NULL, verbose_name='доставка', null=True, blank=True)
-    status = models.CharField(choices=statuses, max_length=30, default='basket', verbose_name='статус')
-    data = models.DateTimeField(auto_now=True, verbose_name='дата заказа')
-
-    class Meta:
-        verbose_name_plural = 'заказы'
-        verbose_name = 'заказ'
-
-    def __str__(self):
-        return f'заказ {self.id} от {self.data} пользователя {self.user}'
-
-
-
 class Review(models.Model):
     goods = models.ForeignKey('Goods', on_delete=models.CASCADE, verbose_name='товар')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь')
-    title = models.CharField(max_length=30, verbose_name='заголовок')
-    text = models.TextField(max_length=1000, verbose_name='полное описание товара')
-    rate = models.IntegerField(default=1, verbose_name='оценка')
+    text = models.TextField(max_length=1000, verbose_name='текст отзыва')
+    rate = models.IntegerField(default=1, validators=[MaxValueValidator(5), MinValueValidator(1)],
+                               verbose_name='оценка')
 
     class Meta:
         verbose_name_plural = 'отзывы'
         verbose_name = 'отзыв'
 
     def __str__(self):
-        return f'Отзыв о {self.goods} с номером {self.id}'
+        return f'Отзыв о {self.goods}'
 
 
 
-class Delivery(models.Model):
-    title = models.CharField(max_length=30, verbose_name='название вида доставки')
-    price = models.FloatField(verbose_name='стоимость доставки')
-    cost_for_free = models.FloatField(verbose_name='минимальная стоимость заказа для бесплатной доставки')
 
-    class Meta:
-        verbose_name_plural = 'доставки'
-        verbose_name = 'доставка'
-
-    def __str__(self):
-        return self.title
 
