@@ -25,8 +25,6 @@
     <title>Megano</title>
     <meta name="description" content="Описание страницы">
     <meta charset="utf-8">
-
-    <meta id="csrf" value="{% csrf_token %}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <link href="favicon.ico" rel="shortcut icon">
     <link rel="preload" href="{% static 'assets/fonts/Roboto/Roboto-Regular.woff' %}" as="font">
@@ -44,35 +42,35 @@
 </head>
 
 <body class="Site">
-    <!--if lt IE 8
-  p.error-browser
-      | Ваш браузер&nbsp;
-      em устарел!&nbsp;
-      a(href="http://browsehappy.com/") Выберите новую версию
-          +s
-          | браузера здесь&nbsp;
-      | для правильного отображения сайта.
-  -->
-    <header class="Header">
-       {% include 'header.html' %}
-    </header>
+<!--if lt IE 8
+p.error-browser
+  | Ваш браузер&nbsp;
+  em устарел!&nbsp;
+  a(href="http://browsehappy.com/") Выберите новую версию
+      +s
+      | браузера здесь&nbsp;
+  | для правильного отображения сайта.
+-->
+<header class="Header">
+    {% include 'header.html' %}
+</header>
 
 {% block content %} {% endblock content %}
 
-    <footer class="Footer">
-        {% include 'footer.html' %}
-    </footer>
-    <!--+Middle-->
-    <!--    +div.-top-->
-    <!--        +breadcrumbs('Главная','Портфолио')-->
-    <!--    +Article('portfolio')-->
-    <!---->
-    <script src="{% static 'assets/plg/jQuery/jquery-3.5.0.slim.min.js' %}"></script>
-    <script src="{% static 'assets/plg/form/jquery.form.js' %}"></script>
-    <script src="{% static 'assets/plg/form/jquery.maskedinput.min.js' %}"></script>
-    <script src="{% static 'assets/plg/range/ion.rangeSlider.min.js' %}"></script>
-    <script src="{% static 'assets/plg/Slider/slick.min.js' %}"></script>
-    <script src="{% static 'assets/js/scripts.js' %}"></script>
+<footer class="Footer">
+    {% include 'footer.html' %}
+</footer>
+<!--+Middle-->
+<!--    +div.-top-->
+<!--        +breadcrumbs('Главная','Портфолио')-->
+<!--    +Article('portfolio')-->
+<!---->
+<script src="{% static 'assets/plg/jQuery/jquery-3.5.0.slim.min.js' %}"></script>
+<script src="{% static 'assets/plg/form/jquery.form.js' %}"></script>
+<script src="{% static 'assets/plg/form/jquery.maskedinput.min.js' %}"></script>
+<script src="{% static 'assets/plg/range/ion.rangeSlider.min.js' %}"></script>
+<script src="{% static 'assets/plg/Slider/slick.min.js' %}"></script>
+<script src="{% static 'assets/js/scripts.js' %}"></script>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="Middle Middle_top">
+    <div class="Middle Middle_top">
         <div class="Middle-top">
             <div class="wrap">
                 <div class="Middle-header">
@@ -42,32 +42,38 @@
                 <div class="Section-content">
                     <div class="Profile">
                         <form class="form Profile-form" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
+                            {% csrf_token %}
                             <div class="row">
                                 <div class="row-block">
                                     <div class="form-group">
                                         <label class="form-label" for="avatar">Аватар
                                         </label>
                                         {% if object.avatar %}
-                                        <div class="Profile-avatar">
-                                            <div class="Profile-img"><img src="{{ object.avatar.url }}" alt="card.jpg" />
+                                            <div class="Profile-avatar">
+                                                <div class="Profile-img"><img src="{{ object.avatar.url }}"
+                                                                              alt="card.jpg"/>
+                                                </div>
+                                                <label class="Profile-fileLabel" for="avatar">Выберите аватар
+                                                </label>
+                                                <input class="Profile-file form-input" id="avatar" name="avatar"
+                                                       type="file"/>
                                             </div>
-                                            <label class="Profile-fileLabel" for="avatar">Выберите аватар
-                                            </label>
-                                            <input class="Profile-file form-input" id="avatar" name="avatar" type="file" />
-                                        </div>
                                         {% else %}
-                                        <div class="Profile-avatar Profile-avatar_noimg">
-                                            <label class="Profile-fileLabel" for="avatar"><img src="{% static 'assets/img/icons/upload.png' %}" alt="#.png" />Загрузить фото
-                                            </label>
-                                            <input class="Profile-file form-input" id="avatar" name="avatar" type="file"/>
-                                        </div>
+                                            <div class="Profile-avatar Profile-avatar_noimg">
+                                                <label class="Profile-fileLabel" for="avatar"><img
+                                                        src="{% static 'assets/img/icons/upload.png' %}" alt="#.png"/>Загрузить
+                                                    фото
+                                                </label>
+                                                <input class="Profile-file form-input" id="avatar" name="avatar"
+                                                       type="file"/>
+                                            </div>
                                         {% endif %}
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" for="name">ФИО
                                         </label>
-                                        <input class="form-input" id="name" name="name" type="text" value="{{ object.name }}" data-validate="require"/>
+                                        <input class="form-input" id="name" name="name" type="text"
+                                               value="{{ object.name }}" data-validate="require"/>
                                     </div>
                                 </div>
                                 <div class="row-block">
@@ -75,25 +81,29 @@
                                         <label class="form-label" for="phone">Телефон
                                         </label>
                                         {% if object.phone %}
-                                        <input class="form-input" id="phone" name="phone" type="text"  value="{{ object.phone }}"/>
+                                            <input class="form-input" id="phone" name="phone" type="text"
+                                                   value="{{ object.phone }}"/>
                                         {% else %}
-                                        <input class="form-input" id="phone" name="phone" type="text" />
+                                            <input class="form-input" id="phone" name="phone" type="text"/>
                                         {% endif %}
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" for="email">E-mail
                                         </label>
-                                        <input class="form-input" id="email" name="email" type="text"  value="{{ object.user.email }}"/>
+                                        <input class="form-input" id="email" name="email" type="text"
+                                               value="{{ object.user.email }}"/>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" for="password">Пароль
                                         </label>
-                                        <input class="form-input" id="password" name="password1" type="password" placeholder="Тут можно изменить пароль" />
+                                        <input class="form-input" id="password" name="password1" type="password"
+                                               placeholder="Тут можно изменить пароль"/>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" for="passwordReply">Подтверждение пароля
                                         </label>
-                                        <input class="form-input" id="passwordReply" name="password2" type="password" placeholder="Введите пароль повторно" />
+                                        <input class="form-input" id="passwordReply" name="password2" type="password"
+                                               placeholder="Введите пароль повторно"/>
                                     </div>
                                     <div class="form-group">
                                         <div class="Profile-btn">
@@ -111,8 +121,8 @@
     </div>
 {% endblock %}
 <script src="{% static 'assets/plg/jQuery/jquery-3.5.0.slim.min.js' %}"></script>
-        <script src="{% static 'assets/plg/form/jquery.form.js' %}"></script>
-        <script src="{% static 'assets/plg/form/jquery.maskedinput.min.js' %}"></script>
-        <script src="{% static 'assets/plg/range/ion.rangeSlider.min.js' %}"></script>
-        <script src="{% static 'assets/plg/Slider/slick.min.js' %}"></script>
-        <script src="{% static 'assets/js/scripts.js' %}"></script>
+<script src="{% static 'assets/plg/form/jquery.form.js' %}"></script>
+<script src="{% static 'assets/plg/form/jquery.maskedinput.min.js' %}"></script>
+<script src="{% static 'assets/plg/range/ion.rangeSlider.min.js' %}"></script>
+<script src="{% static 'assets/plg/Slider/slick.min.js' %}"></script>
+<script src="{% static 'assets/js/scripts.js' %}"></script>

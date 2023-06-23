@@ -66,6 +66,7 @@ def registration(request):
         form = UserCreationForm()
     return render(request, 'user_app/registration.html', {'form': form})
 
+
 class PersonalPage(TemplateView):
     template_name = 'user_app/lk.html'
 
@@ -112,10 +113,3 @@ def edit_profile(request):
         return HttpResponseRedirect(request.path_info)
 
     return render(request, 'user_app/Profile_update.html', context)
-
-
-
-
-
-
-

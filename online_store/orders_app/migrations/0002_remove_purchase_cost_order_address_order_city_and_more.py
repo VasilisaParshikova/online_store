@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('orders_app', '0001_initial'),
     ]
@@ -35,6 +34,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='order',
             name='payment_type',
-            field=models.CharField(choices=[('card', 'Онлйан карта'), ('random_card', 'Рандомная карта')], default='card', max_length=30, verbose_name='тип доставки'),
+            field=models.CharField(choices=[('card', 'Онлйан карта'), ('random_card', 'Рандомная карта')],
+                                   default='card', max_length=30, verbose_name='тип доставки'),
         ),
     ]

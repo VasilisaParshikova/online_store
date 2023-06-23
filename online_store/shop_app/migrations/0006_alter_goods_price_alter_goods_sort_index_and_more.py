@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('shop_app', '0005_remove_order_delivery_remove_order_user_and_more'),
     ]
@@ -19,12 +18,16 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='goods',
             name='sort_index',
-            field=models.IntegerField(default=0, validators=[django.core.validators.MaxValueValidator(10), django.core.validators.MinValueValidator(0)], verbose_name='индекс сортировки'),
+            field=models.IntegerField(default=0, validators=[django.core.validators.MaxValueValidator(10),
+                                                             django.core.validators.MinValueValidator(0)],
+                                      verbose_name='индекс сортировки'),
         ),
         migrations.AlterField(
             model_name='review',
             name='rate',
-            field=models.IntegerField(default=1, validators=[django.core.validators.MaxValueValidator(5), django.core.validators.MinValueValidator(1)], verbose_name='оценка'),
+            field=models.IntegerField(default=1, validators=[django.core.validators.MaxValueValidator(5),
+                                                             django.core.validators.MinValueValidator(1)],
+                                      verbose_name='оценка'),
         ),
         migrations.AlterField(
             model_name='review',

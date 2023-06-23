@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="Middle Middle_top">
+    <div class="Middle Middle_top">
         <div class="Middle-top">
             <div class="wrap">
                 <div class="Middle-header">
@@ -87,35 +87,41 @@
                             </div>
                             <div class="Cart Cart_order">
                                 {% for item in items_list %}
-                                <div class="Cart-product">
-                                    <div class="Cart-block Cart-block_row">
-                                        <div class="Cart-block Cart-block_pict"><a class="Cart-pict" href="/catalog/product{{ item.goods.id }}">
-                                            {% if item.goods.Photo %}
-                                            <img class="Cart-img" src="{{ item.goods.Photo.url }}" alt="card.jpg" />
-                                            {% else %}
-                                            <img class="Cart-img" src="{% static 'assets/img/content/no_photo.png' %}" alt="card.jpg" />
-                                            {% endif %}
-                                        </a>
-                                        </div>
-                                        <div class="Cart-block Cart-block_info"><a class="Cart-title" href="/catalog/product{{ item.goods.id }}">{{ item.goods.title }}</a>
-                                            <div class="Cart-desc">{{ item.goods.short_info }}
+                                    <div class="Cart-product">
+                                        <div class="Cart-block Cart-block_row">
+                                            <div class="Cart-block Cart-block_pict"><a class="Cart-pict"
+                                                                                       href="/catalog/product{{ item.goods.id }}">
+                                                {% if item.goods.Photo %}
+                                                    <img class="Cart-img" src="{{ item.goods.Photo.url }}"
+                                                         alt="card.jpg"/>
+                                                {% else %}
+                                                    <img class="Cart-img"
+                                                         src="{% static 'assets/img/content/no_photo.png' %}"
+                                                         alt="card.jpg"/>
+                                                {% endif %}
+                                            </a>
+                                            </div>
+                                            <div class="Cart-block Cart-block_info"><a class="Cart-title"
+                                                                                       href="/catalog/product{{ item.goods.id }}">{{ item.goods.title }}</a>
+                                                <div class="Cart-desc">{{ item.goods.short_info }}
+                                                </div>
+                                            </div>
+                                            <div class="Cart-block Cart-block_price">
+                                                <div class="Cart-price">{{ item.goods.price }} руб.
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="Cart-block Cart-block_price">
-                                            <div class="Cart-price">{{ item.goods.price }} руб.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="Cart-block Cart-block_row">
+                                        <div class="Cart-block Cart-block_row">
 
-                                        <div class="Cart-block Cart-block_amount">{{ item.amount }} шт.
+                                            <div class="Cart-block Cart-block_amount">{{ item.amount }} шт.
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 {% endfor %}
                                 <div class="Cart-total">
                                     <div class="Cart-block Cart-block_total">
-                                        <strong class="Cart-title">Итого:<span class="Cart-price">{{ object.cost }} руб.</span>
+                                        <strong class="Cart-title">Итого:<span
+                                                class="Cart-price">{{ object.cost }} руб.</span>
                                         </strong>
                                     </div>
                                     <div class="Cart-block"><a class="btn btn_primary btn_lg" href="#">Оплатить</a>

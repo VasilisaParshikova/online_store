@@ -25,7 +25,8 @@ class Order(models.Model):
     status = models.CharField(choices=statuses, max_length=30, default='basket', verbose_name='статус')
     data = models.DateField(auto_now_add=True, verbose_name='дата заказа')
     cost = models.IntegerField(verbose_name='стоимость')
-    payment_type = models.CharField(choices=payments, max_length=30, default='card', verbose_name='тип доставки', null=True, blank=True)
+    payment_type = models.CharField(choices=payments, max_length=30, default='card', verbose_name='тип доставки',
+                                    null=True, blank=True)
     city = models.CharField(max_length=30, verbose_name='город доставки', null=True, blank=True)
     address = models.CharField(max_length=1000, verbose_name='адрес', null=True, blank=True)
 
@@ -35,6 +36,7 @@ class Order(models.Model):
 
     def __str__(self):
         return f'заказ {self.id} от {self.data} пользователя {self.user}'
+
 
 class Delivery(models.Model):
     title = models.CharField(max_length=30, verbose_name='название вида доставки')

@@ -7,6 +7,7 @@ from orders_app.models import Order, Purchase
 from user_app.models import Profile
 from shop_app.models import Goods
 
+
 class Basket(ListView):
     model = Purchase
     template_name = 'orders_app/busket.html'
@@ -67,6 +68,7 @@ class OrderPage(DetailView):
         context['items_list'] = items_list
         return context
 
+
 def add_to_basket(request, pk):
     goods = Goods.objects.get(id=pk)
     basket_item = Purchase(user=request.user, goods=goods, amount=request.POST.get('amount'))
@@ -75,7 +77,6 @@ def add_to_basket(request, pk):
 
 
 def add_to_basket_catalog(request):
-    print('@@@@@@@@@@@')
     goods = Goods.objects.get(id=request.POST.get('id'))
     basket_item = Purchase(user=request.user, goods=goods, amount=1)
     basket_item.save()

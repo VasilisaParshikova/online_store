@@ -901,10 +901,19 @@
 
 $(document).ready(function () {
     $('#add-item').click(function () {
+        var a = document.cookie.split(';');
+        var token = ''
+        for (var i = 0; i < a.length; i++) {
+            var b = a[i].split('=')
+            b[0] = b[0].replace(/\s+/g, '')
+            if (b[0] == 'csrftoken') {
+                token = b[1]
+            }
+        }
         $.ajax(location.pathname + '/modal_open', {
             type: 'POST',
             data: {
-                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                'csrfmiddlewaretoken': token,
                 amount: $('#item-amount').attr('value')
             },
             success: function (data, status, xhr) {
@@ -927,8 +936,8 @@ $(document).ready(function () {
             }
         }
 
-        $.ajax( '/add_item', {
-        // $.ajax(location.pathname + '/modal_open', {
+        $.ajax('/add_item', {
+            // $.ajax(location.pathname + '/modal_open', {
             type: 'POST',
             data: {
                 'csrfmiddlewaretoken': token,

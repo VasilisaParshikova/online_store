@@ -39,7 +39,8 @@ class Company(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=30, verbose_name='наименование')
-    parent_category = models.ForeignKey('Category', on_delete=models.SET_NULL, blank=True, null=True, verbose_name='родительская категория')
+    parent_category = models.ForeignKey('Category', on_delete=models.SET_NULL, blank=True, null=True,
+                                        verbose_name='родительская категория')
     image = models.ImageField(upload_to='uploads/categoey_img/', null=True, blank=True, verbose_name='иконка')
 
     class Meta:
@@ -63,8 +64,3 @@ class Review(models.Model):
 
     def __str__(self):
         return f'Отзыв о {self.goods}'
-
-
-
-
-

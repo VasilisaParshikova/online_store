@@ -21,7 +21,8 @@ class MainPage(TemplateView):
             'title', 'price', 'category', 'Photo', 'id')[:16])
         top_list = list(Goods.objects.order_by('-sort_index', '-was_bought_times').select_related('category').only(
             'title', 'Photo', 'id', 'price', 'category')[:8])
-        top_category = list(Category.objects.filter(id__in=[8, 9, 12]).only('title', 'image', 'id').annotate(min_price=Min('goods__price')))
+        top_category = list(Category.objects.filter(id__in=[8, 9, 12]).only('title', 'image', 'id').annotate(
+            min_price=Min('goods__price')))
         context['limited_edition_list'] = limited_edition_list
         context['top_list'] = top_list
         context['slider'] = slider
@@ -74,7 +75,4 @@ class Product(DetailView):
 
 class CategoryView(DetailView):
     model = Category
-    #template_name = ''
-
-
-
+    # template_name = ''

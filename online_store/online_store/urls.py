@@ -22,5 +22,4 @@ urlpatterns = [
     path('', include('user_app.urls')),
     path('', include('orders_app.urls'))
 
-
 ]

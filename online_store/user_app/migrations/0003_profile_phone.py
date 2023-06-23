@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('user_app', '0002_remove_profile_patronymic_remove_profile_surname_and_more'),
     ]

@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -21,7 +20,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=30, verbose_name='название вида доставки')),
                 ('price', models.FloatField(verbose_name='стоимость доставки')),
-                ('cost_for_free', models.FloatField(verbose_name='минимальная стоимость заказа для бесплатной доставки')),
+                ('cost_for_free',
+                 models.FloatField(verbose_name='минимальная стоимость заказа для бесплатной доставки')),
             ],
             options={
                 'verbose_name': 'доставка',
@@ -32,10 +32,14 @@ class Migration(migrations.Migration):
             name='Order',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('status', models.CharField(choices=[('basket', 'в корзине'), ('paid', 'оплачен'), ('not_paid', 'не оплачен')], default='basket', max_length=30, verbose_name='статус')),
+                ('status',
+                 models.CharField(choices=[('basket', 'в корзине'), ('paid', 'оплачен'), ('not_paid', 'не оплачен')],
+                                  default='basket', max_length=30, verbose_name='статус')),
                 ('data', models.DateTimeField(auto_now=True, verbose_name='дата заказа')),
-                ('delivery', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='orders_app.delivery', verbose_name='доставка')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='пользователь')),
+                ('delivery', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL,
+                                               to='orders_app.delivery', verbose_name='доставка')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL,
+                                           verbose_name='пользователь')),
             ],
             options={
                 'verbose_name': 'заказ',
@@ -48,9 +52,12 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('amount', models.IntegerField(verbose_name='количество')),
                 ('cost', models.FloatField(verbose_name='стоимость')),
-                ('goods', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop_app.goods', verbose_name='товар')),
-                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='orders_app.order', verbose_name='заказ')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='пользователь')),
+                ('goods', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shop_app.goods',
+                                            verbose_name='товар')),
+                ('order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='orders_app.order',
+                                            verbose_name='заказ')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL,
+                                           verbose_name='пользователь')),
             ],
             options={
                 'verbose_name': 'покупка',

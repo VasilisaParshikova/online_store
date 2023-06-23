@@ -74,9 +74,9 @@ _no-media($direction, $type, $a, $b)
     if ($type == 'min')
       if ($width--fixed-min >= $a)
         {block}
-    else if ($type == 'max')
+      else if ($type == 'max')
       if ($width--fixed-max <= $a)
         {block}
-    else if ($type == 'range')
+      else if ($type == 'range')
       if ($width--fixed-min >= $a && $width--fixed-max <= $b)
         {block}

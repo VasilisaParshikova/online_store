@@ -17,7 +17,8 @@
                                     </li>
                                     <li class="menu-item"><a class="menu-link" href="/lk/edit">Профиль</a>
                                     </li>
-                                    <li class="menu-item_ACTIVE menu-item"><a class="menu-link" href="/lk/orderhistory">История заказов</a>
+                                    <li class="menu-item_ACTIVE menu-item"><a class="menu-link" href="/lk/orderhistory">История
+                                        заказов</a>
                                     </li>
 
                                 </ul>
@@ -28,40 +29,43 @@
                 <div class="Section-content">
                     <div class="Orders">
                         {% for object in object_list %}
-                        <div class="Order Order_anons">
-                            <div class="Order-personal">
-                                <div class="row">
-                                    <div class="row-block"><a class="Order-title" href="/lk/order{{ object.id }}">Заказ&#32;<span class="Order-numberOrder">{{ object.id }}</span>&#32;от&#32;<span class="Order-dateOrder">{{ object.data|date:"d.m.Y" }}</span></a>
-                                    </div>
-                                    <div class="row-block">
-                                        <div class="Order-info Order-info_delivery">
-                                            <div class="Order-infoType">Тип доставки:
-                                            </div>
-                                            <div class="Order-infoContent">{{ object.delivery }}
-                                            </div>
+                            <div class="Order Order_anons">
+                                <div class="Order-personal">
+                                    <div class="row">
+                                        <div class="row-block"><a class="Order-title" href="/lk/order{{ object.id }}">Заказ&#32;<span
+                                                class="Order-numberOrder">{{ object.id }}</span>&#32;от&#32;<span
+                                                class="Order-dateOrder">{{ object.data|date:"d.m.Y" }}</span></a>
                                         </div>
-                                        <div class="Order-info Order-info_pay">
-                                            <div class="Order-infoType">Оплата:
+                                        <div class="row-block">
+                                            <div class="Order-info Order-info_delivery">
+                                                <div class="Order-infoType">Тип доставки:
+                                                </div>
+                                                <div class="Order-infoContent">{{ object.delivery }}
+                                                </div>
                                             </div>
-                                            <div class="Order-infoContent">{{ object.get_payment_type_display }}
+                                            <div class="Order-info Order-info_pay">
+                                                <div class="Order-infoType">Оплата:
+                                                </div>
+                                                <div class="Order-infoContent">{{ object.get_payment_type_display }}
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="Order-info">
-                                            <div class="Order-infoType">Общая стоимость:
+                                            <div class="Order-info">
+                                                <div class="Order-infoType">Общая стоимость:
+                                                </div>
+                                                <div class="Order-infoContent"><span
+                                                        class="Order-price">{{ object.cost }} руб.</span>
+                                                </div>
                                             </div>
-                                            <div class="Order-infoContent"><span class="Order-price">{{ object.cost }} руб.</span>
-                                            </div>
-                                        </div>
-                                        <div class="Order-info Order-info_status">
-                                            <div class="Order-infoType">Статус:
-                                            </div>
-                                            <div class="Order-infoContent">{{ object.get_status_display }}
+                                            <div class="Order-info Order-info_status">
+                                                <div class="Order-infoType">Статус:
+                                                </div>
+                                                <div class="Order-infoContent">{{ object.get_status_display }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         {% endfor %}
                     </div>
                 </div>

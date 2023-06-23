@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('shop_app', '0001_initial'),
     ]
@@ -18,7 +17,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='goods',
             name='category',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='shop_app.category', verbose_name='категории'),
+            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='shop_app.category',
+                                    verbose_name='категории'),
             preserve_default=False,
         ),
     ]
