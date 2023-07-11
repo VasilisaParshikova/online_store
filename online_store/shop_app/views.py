@@ -40,8 +40,10 @@ class Catalog(ListView):
         company_list = list(Company.objects.all())
         prices = Goods.objects.aggregate(Max('price'), Min('price'))
         context['company_list'] = company_list
+        category_list = list(Category.objects.filter(parent_category__isnull=True))
         context['min_price'] = prices['price__min']
         context['max_price'] = prices['price__max']
+        context['category_list'] = category_list
         return context
 
 

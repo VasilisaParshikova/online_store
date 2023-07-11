@@ -47,6 +47,7 @@
                         <div class="Account-group">
                             <div class="Account-column Account-column_full">
                                 <div class="Order Order_anons">
+                                    {% if last_order %}
                                     <div class="Order-personal">
                                         <div class="row">
                                             <div class="row-block"><a class="Order-title"
@@ -85,6 +86,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

@@ -86,8 +86,8 @@ block
                 <a class="CartBlock-block" href="/basket"><img class="CartBlock-img"
                                                                src="{% static 'assets/img/icons/cart.svg' %}"
                                                                alt="cart.svg"/><span
-                        class="CartBlock-amount">0</span></a>
-                <div class="CartBlock-block"><span class="CartBlock-price">0.00$</span>
+                        class="CartBlock-amount">{% basket_amount request.user.id %}</span></a>
+                <div class="CartBlock-block"><span class="CartBlock-price">{% basket_cost request.user.id %} руб</span>
 
 
                 </div>

@@ -706,7 +706,7 @@
                             $blocks.index($(href)) < $blocks.index($blocks.filter('.Order-block_OPEN')))
                         ) {
                             $blocks.removeClass('Order-block_OPEN');
-                            $(href).addClass('Order-block_OPEN');
+                            $(href).addClass('Order-block_OPEN').trigger('classChanged');
                             $navigate.find('.menu-item').removeClass('menu-item_ACTIVE');
                             $navigate.find('.menu-link[href="' + href + '"]')
                                 .closest('.menu-item')
@@ -949,5 +949,105 @@ $(document).ready(function () {
                 // show modal
             }
         })
+    })
+});
+
+$(document).ready(function () {
+    $('.add-item-amount').on('click', function () {
+        var a = document.cookie.split(';');
+        var token = ''
+        for (var i = 0; i < a.length; i++) {
+            var b = a[i].split('=')
+            b[0] = b[0].replace(/\s+/g, '')
+            if (b[0] == 'csrftoken') {
+                token = b[1]
+            }
+        }
+
+        $.ajax('/add_item_amount', {
+            // $.ajax(location.pathname + '/modal_open', {
+            type: 'POST',
+            data: {
+                'csrfmiddlewaretoken': token,
+                id: $(this).data('id'),
+                id2: $(this).data('id2')
+
+            },
+            success: function (data, status, xhr) {
+                // refresh count
+                // show modal
+            }
+        })
+    })
+});
+
+$(document).ready(function () {
+    $('.remove-item-amount').on('click', function () {
+        var a = document.cookie.split(';');
+        var token = ''
+        for (var i = 0; i < a.length; i++) {
+            var b = a[i].split('=')
+            b[0] = b[0].replace(/\s+/g, '')
+            if (b[0] == 'csrftoken') {
+                token = b[1]
+            }
+        }
+
+        $.ajax('/remove_item_amount', {
+            // $.ajax(location.pathname + '/modal_open', {
+            type: 'POST',
+            data: {
+                'csrfmiddlewaretoken': token,
+                id: $(this).data('id'),
+                id2: $(this).data('id2')
+
+            },
+            success: function (data, status, xhr) {
+                // refresh count
+                // show modal
+            }
+        })
+    })
+});
+
+$(document).ready(function () {
+    $('#step4').on('classChanged', function (event) {
+        var fields = ['name', 'phone', 'mail', 'delivery', 'city', 'address', 'pay'];
+        fields.forEach(function (field){
+            $('#orderInfo_'+field).html($('#'+ field).val())
+            if (field==='pay')
+            {
+                if ($('input#'+field).val() === 'online'){
+                    $('#orderInfo_'+field).html('Онлайн картой')
+                } else {
+                    $('#orderInfo_'+field).html('Онлайн со случайного чужого счета')
+                }
+
+            }
+            if (field==='delivery')
+            {
+                if ($('input#'+field).val() === 'ordinary'){
+                    if ($('#goods_price').data('sum')<2000){
+                        $('#del_price').html(deliveryPrice.ordinary + ' руб.')
+                        var price = $('#goods_price').data('sum') + deliveryPrice.ordinary
+                        $('#total_price').html(price + ' руб.')
+                    } else {
+                        $('#del_price').html('0 руб.')
+                        $('#total_price').html($('#goods_price').data('sum') + ' руб.')
+                    }
+
+
+                } else {
+                    $('#orderInfo_'+field).html('Экспресс доставка')
+                    $('#del_price').html(deliveryPrice.express + ' руб.')
+                    var price = $('#goods_price').data('sum') + deliveryPrice.express
+                    $('#total_price').html(price + ' руб.')
+                }
+
+            }
+
+            return null;
+        });
+
     })
 });

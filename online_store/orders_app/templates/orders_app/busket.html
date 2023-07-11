@@ -37,18 +37,24 @@
                                 <div class="Cart-block Cart-block_amount">
                                     <div class="Cart-amount">
                                         <div class="Amount">
-                                            <button class="Amount-remove" type="button">
+                                            <button data-id="{{ object.id }}" data-id2 ="{{ object.goods.id }}" class="Amount-remove remove-item-amount" type="button">
                                             </button>
                                             <input class="Amount-input form-input" name="amount" type="text"
                                                    value="{{ object.amount }}"/>
-                                            <button class="Amount-add" type="button">
+                                            <button data-id="{{ object.id }}" data-id2 ="{{ object.goods.id }}" class="Amount-add add-item-amount" type="button">
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="Cart-block Cart-block_delete"><a class="Cart-delete" href="#"><img
+                                {%  if request.user.is_authenticated %}
+                                <div class="Cart-block Cart-block_delete"><a class="Cart-delete" href="/delate{{ object.id }}"><img
                                         src="{% static 'assets/img/icons/card/delete.svg' %}" alt="delete.svg"/></a>
                                 </div>
+                                {% else %}
+                                <div class="Cart-block Cart-block_delete"><a class="Cart-delete" href="/delate{{ object.goods.id }}"><img
+                                        src="{% static 'assets/img/icons/card/delete.svg' %}" alt="delete.svg"/></a>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}
@@ -57,8 +63,10 @@
                             <strong class="Cart-title">Итого:
                             </strong><span class="Cart-price">{{ sum }} руб.</span>
                         </div>
-                        <div class="Cart-block"><a class="btn btn_success btn_lg" href="order.html">Оформить заказ</a>
+                        {% if sum != 0 %}
+                        <div class="Cart-block"><a class="btn btn_success btn_lg" href="/makeorder">Оформить заказ</a>
                         </div>
+                        {% endif %}
                     </div>
                 </form>
             </div>

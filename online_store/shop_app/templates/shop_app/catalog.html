@@ -54,7 +54,7 @@
                         </header>
                         <div class="Section-columnContent">
                             <div class="buttons">
-                                {% for cat in category.keys %}
+                                {% for cat in category_list %}
                                     <a class="btn btn_default btn_sm" href="#">{{ cat.title }}</a>
                                 {% endfor %}
                             </div>
@@ -137,7 +137,6 @@
             </div>
         </div>
     </div>
-    {{ page_obj.number }}
 {% endblock %}
 
 <script src="{% static 'assets/plg/jQuery/jquery-3.5.0.slim.min.js' %}"></script>

@@ -26,6 +26,21 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
+                    if request.session.get('basket'):
+                        basket_list = list(
+                            Purchase.objects.select_related('goods').filter(user=request.user, order__isnull=True))
+                        for item in request.session.get('basket'):
+                            goods = Goods.objects.get(id=item['goods'])
+                            add_to_basket_flag = True
+                            for obj in basket_list:
+                                if obj.goods == goods:
+                                    obj.amount += item['amount']
+                                    obj.save()
+                                    add_to_basket_flag = False
+                                    break
+                            if add_to_basket_flag:
+                                basket_item = Purchase(user=user, goods=goods, amount=item['amount'])
+                                basket_item.save()
                     return HttpResponseRedirect('/')
                 else:
                     return render(request, 'user_app/login.html', {'error': 'Неверно введён e-mail или пароль'})
@@ -58,6 +73,11 @@ def registration(request):
             else:
                 error = 'Возникла ошибка регистрации. Проверьте введённые данные'
                 return render(request, 'user_app/registration.html', {'error': error})
+            if request.session.get('basket'):
+                for item in request.session.get('basket'):
+                    goods = Goods.objects.get(id=item['goods'])
+                    basket_item = Purchase(user=user, goods=goods, amount=item['amount'])
+                    basket_item.save()
             return HttpResponseRedirect('/')
         else:
             error = form.errors
@@ -81,7 +101,8 @@ class PersonalPage(TemplateView):
         last_order = list(Order.objects.filter(user=self.request.user).order_by('-data').only('id', 'data', 'delivery',
                                                                                               'status', 'cost',
                                                                                               'payment_type')[:1])
-        context['last_order'] = last_order[0]
+        if not last_order == []:
+            context['last_order'] = last_order[0]
         return context
 
 

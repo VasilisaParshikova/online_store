@@ -706,7 +706,7 @@
                             $blocks.index($(href)) < $blocks.index($blocks.filter('.Order-block_OPEN')))
                         ) {
                             $blocks.removeClass('Order-block_OPEN');
-                            $(href).addClass('Order-block_OPEN');
+                            $(href).addClass('Order-block_OPEN').trigger('classChanged');
                             $navigate.find('.menu-item').removeClass('menu-item_ACTIVE');
                             $navigate.find('.menu-link[href="' + href + '"]')
                                 .closest('.menu-item')
@@ -898,3 +898,4 @@
 
 
 })(jQuery);
+
