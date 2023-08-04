@@ -6,36 +6,55 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('orders_app', '0006_alter_order_data'),
+        ("orders_app", "0006_alter_order_data"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='order',
-            name='address',
-            field=models.CharField(blank=True, max_length=1000, null=True, verbose_name='адрес'),
+            model_name="order",
+            name="address",
+            field=models.CharField(
+                blank=True, max_length=1000, null=True, verbose_name="адрес"
+            ),
         ),
         migrations.AlterField(
-            model_name='order',
-            name='city',
-            field=models.CharField(blank=True, max_length=30, null=True, verbose_name='город доставки'),
+            model_name="order",
+            name="city",
+            field=models.CharField(
+                blank=True, max_length=30, null=True, verbose_name="город доставки"
+            ),
         ),
         migrations.AlterField(
-            model_name='order',
-            name='payment_type',
-            field=models.CharField(blank=True, choices=[('card', 'Онлйан карта'), ('random_card', 'Рандомная карта')],
-                                   default='card', max_length=30, null=True, verbose_name='тип доставки'),
+            model_name="order",
+            name="payment_type",
+            field=models.CharField(
+                blank=True,
+                choices=[("card", "Онлйан карта"), ("random_card", "Рандомная карта")],
+                default="card",
+                max_length=30,
+                null=True,
+                verbose_name="тип доставки",
+            ),
         ),
         migrations.AlterField(
-            model_name='order',
-            name='status',
-            field=models.CharField(choices=[('paid', 'оплачен'), ('not_paid', 'не оплачен')], default='basket',
-                                   max_length=30, verbose_name='статус'),
+            model_name="order",
+            name="status",
+            field=models.CharField(
+                choices=[("paid", "оплачен"), ("not_paid", "не оплачен")],
+                default="basket",
+                max_length=30,
+                verbose_name="статус",
+            ),
         ),
         migrations.AlterField(
-            model_name='purchase',
-            name='order',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE,
-                                    to='orders_app.order', verbose_name='заказ'),
+            model_name="purchase",
+            name="order",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="orders_app.order",
+                verbose_name="заказ",
+            ),
         ),
     ]

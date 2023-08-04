@@ -5,44 +5,44 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('shop_app', '0004_company_goods_company'),
+        ("shop_app", "0004_company_goods_company"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='order',
-            name='delivery',
+            model_name="order",
+            name="delivery",
         ),
         migrations.RemoveField(
-            model_name='order',
-            name='user',
+            model_name="order",
+            name="user",
         ),
         migrations.RemoveField(
-            model_name='profile',
-            name='user',
+            model_name="profile",
+            name="user",
         ),
         migrations.RemoveField(
-            model_name='purchase',
-            name='goods',
+            model_name="purchase",
+            name="goods",
         ),
         migrations.RemoveField(
-            model_name='purchase',
-            name='order',
+            model_name="purchase",
+            name="order",
         ),
         migrations.RemoveField(
-            model_name='purchase',
-            name='user',
+            model_name="purchase",
+            name="user",
         ),
         migrations.DeleteModel(
-            name='Delivery',
+            name="Delivery",
         ),
         migrations.DeleteModel(
-            name='Order',
+            name="Order",
         ),
         migrations.DeleteModel(
-            name='Profile',
+            name="Profile",
         ),
         migrations.DeleteModel(
-            name='Purchase',
+            name="Purchase",
         ),
     ]

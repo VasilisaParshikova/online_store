@@ -32,7 +32,8 @@
 
 
                 <div class="Section-content">
-                    <form name="order" class="form" action="#" method="post">
+                    <form name="order" class="form" method="post">
+                    {%  csrf_token %}
                         <div class="Order-block Order-block_OPEN" id="step1">
                             <header class="Section-header Section-header_sm">
                                 <h2 class="Section-title">Шаг 1. Параметры пользователя
@@ -84,17 +85,32 @@
                                     <div class="form-group">
                                         <label class="form-label" for="password">Пароль
                                         </label>
-                                        <input class="form-input" id="password" name="password" type="password" placeholder="Тут можно изменить пароль" />
+                                        <input class="form-input" id="password" name="password" type="password" placeholder="Пароль" />
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" for="passwordReply">Подтверждение пароля
                                         </label>
                                         <input class="form-input" id="passwordReply" name="passwordReply" type="password" placeholder="Введите пароль повторно" />
                                     </div>
-                                    <div class="form-group"><a class="btn btn_muted Order-btnReg" href="#">Я уже зарегистрирован</a>
+                                    <div class="form-group">
+                                        <a class="btn btn_muted Order-btnReg" id="reg_in_order" href="#modal_open">Зарегистрироваться</a>
+                                        <a class="btn btn_muted Order-btnReg" href="/login1">Я уже зарегистрирован</a>
                                     </div>
                                 </div>
                             </div>
+                                <div id="modal_open" class="my_modal">
+                                    <div class="my_modal-dialog">
+                                        <div class="my_modal-content">
+                                            <div class="my_modal-header">
+                                                <p class="my_modal-title">Поздравляем!</p>
+                                                <a href="#" title="Закрыть модальное окно" class="close">×</a>
+                                            </div>
+                                            <div class="my_modal-body">
+                                                <p>Вы зарегистрировались!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             <div class="Order-footer"><a class="btn btn_success Order-next" href="#step2">Дальше</a>
                             </div>
                             {% endif %}
@@ -260,7 +276,7 @@
         </div>
     </div>
     <script>
-    var deliveryPrice = {ordinary:200, express: 500}
+    var deliveryPrice = {ordinary: {{ delivery_costs.ord }}, express: {{ delivery_costs.exp }} }
 </script>
 {% endblock content %}
 

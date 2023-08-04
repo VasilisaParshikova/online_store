@@ -14,20 +14,44 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Profile',
+            name="Profile",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=30, verbose_name='имя')),
-                ('patronymic', models.CharField(max_length=30, verbose_name='отчество')),
-                ('surname', models.CharField(max_length=50, verbose_name='фамилия')),
-                ('avatar',
-                 models.ImageField(blank=True, null=True, upload_to='uploads/avatars/', verbose_name='аватар')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL,
-                                              verbose_name='пользователь')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=30, verbose_name="имя")),
+                (
+                    "patronymic",
+                    models.CharField(max_length=30, verbose_name="отчество"),
+                ),
+                ("surname", models.CharField(max_length=50, verbose_name="фамилия")),
+                (
+                    "avatar",
+                    models.ImageField(
+                        blank=True,
+                        null=True,
+                        upload_to="uploads/avatars/",
+                        verbose_name="аватар",
+                    ),
+                ),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="пользователь",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'профайл',
-                'verbose_name_plural': 'профайлы',
+                "verbose_name": "профайл",
+                "verbose_name_plural": "профайлы",
             },
         ),
     ]

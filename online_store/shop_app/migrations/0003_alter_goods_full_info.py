@@ -5,13 +5,15 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('shop_app', '0002_remove_goods_category_goods_category'),
+        ("shop_app", "0002_remove_goods_category_goods_category"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='goods',
-            name='full_info',
-            field=models.TextField(max_length=10000, verbose_name='полное описание товара'),
+            model_name="goods",
+            name="full_info",
+            field=models.TextField(
+                max_length=10000, verbose_name="полное описание товара"
+            ),
         ),
     ]

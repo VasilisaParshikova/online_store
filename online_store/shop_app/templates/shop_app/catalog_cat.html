@@ -11,7 +11,7 @@
                             </strong>
                         </header>
                         <div class="Section-columnContent">
-                            <form class="form" action="/catalog" method="post">
+                            <form class="form" action="/catalog/category{{ cat_name.id }}" method="post">
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <div class="range Section-columnRange">
@@ -66,6 +66,7 @@
                     </div>
                 </div>
                 <div class="Section-content">
+                    <p>{{ cat_name }}</p>
                     <div class="Sort">
                         <div class="Sort-title">Сортировать по:
                         </div>

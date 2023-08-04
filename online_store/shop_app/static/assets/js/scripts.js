@@ -917,8 +917,7 @@ $(document).ready(function () {
                 amount: $('#item-amount').attr('value')
             },
             success: function (data, status, xhr) {
-                // refresh count
-                // show modal
+                location.reload()
             }
         })
     })
@@ -945,8 +944,7 @@ $(document).ready(function () {
 
             },
             success: function (data, status, xhr) {
-                // refresh count
-                // show modal
+                location.reload()
             }
         })
     })
@@ -974,8 +972,7 @@ $(document).ready(function () {
 
             },
             success: function (data, status, xhr) {
-                // refresh count
-                // show modal
+
             }
         })
     })
@@ -1003,8 +1000,7 @@ $(document).ready(function () {
 
             },
             success: function (data, status, xhr) {
-                // refresh count
-                // show modal
+
             }
         })
     })
@@ -1049,5 +1045,46 @@ $(document).ready(function () {
             return null;
         });
 
+    })
+});
+
+$(document).ready(function () {
+    $('#reg_in_order').click(function () {
+        var a = document.cookie.split(';');
+        var token = ''
+        for (var i = 0; i < a.length; i++) {
+            var b = a[i].split('=')
+            b[0] = b[0].replace(/\s+/g, '')
+            if (b[0] == 'csrftoken') {
+                token = b[1]
+            }
+        }
+
+        var password1 = $('#password').val()
+        var password2 = $('#passwordReply').val()
+        var username = $('#mail').val()
+        var first_name = $('#name').val()
+        var phone = $('#phone').val()
+
+        $.ajax('/reg_in_order', {
+            type: 'POST',
+            data: {
+                'csrfmiddlewaretoken': token,
+                'username': username,
+                'password1': password1,
+                'password2': password2,
+                'first_name': first_name,
+                'phone': phone
+            },
+            success: function (response) {
+                if (response.flag == true){
+                    $('.my_modal-title').html('Ошибка регистрации!')
+                    $('.my_modal-body').html(response.error)
+                }
+                else {
+                    location.reload()
+                }
+            }
+        })
     })
 });

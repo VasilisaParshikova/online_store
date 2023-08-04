@@ -60,7 +60,7 @@ block
                     <li class="menu-item"><a class="menu-link" href="/">Главная</a>
                     </li>
                     <li class="menu-item"><span class="menu-label menu-label_success">Скидки</span><a class="menu-link"
-                                                                                                      href="catalog">Каталог</a>
+                                                                                                      href="/catalog">Каталог</a>
                     </li>
                 </ul>
             </div>
@@ -144,8 +144,9 @@ block
         </div>
         <div class="Header-search">
             <div class="search">
-                <form class="form form_search" action="#" method="post">
-                    <input class="search-input" id="query" name="query" type="text"
+                <form class="form form_search" action="/catalog" method="post">
+                    {% csrf_token %}
+                    <input class="search-input" id="query" name="title" type="text"
                            placeholder="NVIDIA GeForce RTX 3060"/>
                     <button class="search-button" type="submit" name="search" id="search"><img
                             src="{% static 'assets/img/icons/search.svg' %}" alt="search.svg"/>Поиск

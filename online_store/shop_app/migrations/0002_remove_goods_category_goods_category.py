@@ -6,19 +6,23 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('shop_app', '0001_initial'),
+        ("shop_app", "0001_initial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='goods',
-            name='category',
+            model_name="goods",
+            name="category",
         ),
         migrations.AddField(
-            model_name='goods',
-            name='category',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='shop_app.category',
-                                    verbose_name='категории'),
+            model_name="goods",
+            name="category",
+            field=models.ForeignKey(
+                default=1,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="shop_app.category",
+                verbose_name="категории",
+            ),
             preserve_default=False,
         ),
     ]

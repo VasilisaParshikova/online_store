@@ -5,12 +5,12 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('shop_app', '0006_alter_goods_price_alter_goods_sort_index_and_more'),
+        ("shop_app", "0006_alter_goods_price_alter_goods_sort_index_and_more"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='review',
-            name='title',
+            model_name="review",
+            name="title",
         ),
     ]

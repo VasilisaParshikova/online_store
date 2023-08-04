@@ -5,13 +5,13 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('orders_app', '0003_alter_order_cost'),
+        ("orders_app", "0003_alter_order_cost"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='order',
-            name='data',
-            field=models.DateField(auto_now_add=True, verbose_name='дата заказа'),
+            model_name="order",
+            name="data",
+            field=models.DateField(auto_now_add=True, verbose_name="дата заказа"),
         ),
     ]
