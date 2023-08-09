@@ -14,6 +14,7 @@ import operator
 from django.http import Http404
 from django.utils.translation import gettext as _
 
+
 class MainPage(TemplateView):
     template_name = "shop_app/index.html"
 
@@ -69,7 +70,7 @@ class Catalog(ListView):
             context["selected_min_price"] = prices["price__min"]
             context["selected_max_price"] = prices["price__max"]
             if self.request.session.get("search_name") != None:
-                context["search_name"] = ''
+                context["search_name"] = ""
         else:
             selected_companies = []
             categories = []
@@ -117,16 +118,18 @@ class Catalog(ListView):
                 object_list = object_list.filter(company__title__in=companies)
             sort_type = self.request.POST.get("sort")
             self.request.session["sort_type"] = sort_type
-            if sort_type == 'pop':
-                object_list = object_list.order_by('-was_bought_times')
-            elif sort_type == 'price_min':
-                 object_list = object_list.order_by('price')
-            elif sort_type == 'price_max':
-                object_list = object_list.order_by('-price')
-            elif sort_type == 'date':
-                object_list = object_list.order_by('-id')
-            elif sort_type == 'review':
-                object_list = object_list.annotate(avg_rate = Avg("review__rate")).order_by('-avg_rate')
+            if sort_type == "pop":
+                object_list = object_list.order_by("-was_bought_times")
+            elif sort_type == "price_min":
+                object_list = object_list.order_by("price")
+            elif sort_type == "price_max":
+                object_list = object_list.order_by("-price")
+            elif sort_type == "date":
+                object_list = object_list.order_by("-id")
+            elif sort_type == "review":
+                object_list = object_list.annotate(
+                    avg_rate=Avg("review__rate")
+                ).order_by("-avg_rate")
             return object_list
         if self.request.method == "GET":
             return Goods.objects.all()
@@ -222,7 +225,7 @@ class CategoryView(ListView):
             context["selected_min_price"] = prices["price__min"]
             context["selected_max_price"] = prices["price__max"]
             if self.request.session.get("search_name_cat") != None:
-                context["search_name"] = ''
+                context["search_name"] = ""
         else:
             selected_companies = []
             categories = []
@@ -267,16 +270,18 @@ class CategoryView(ListView):
                 object_list = object_list.filter(company__title__in=companies)
             sort_type = self.request.POST.get("sort")
             self.request.session["sort_type"] = sort_type
-            if sort_type == 'pop':
-                object_list = object_list.order_by('-was_bought_times')
-            elif sort_type == 'price_min':
-                object_list = object_list.order_by('price')
-            elif sort_type == 'price_max':
-                object_list = object_list.order_by('-price')
-            elif sort_type == 'date':
-                object_list = object_list.order_by('-id')
-            elif sort_type == 'review':
-                object_list = object_list.annotate(avg_rate=Avg("review__rate")).order_by('-avg_rate')
+            if sort_type == "pop":
+                object_list = object_list.order_by("-was_bought_times")
+            elif sort_type == "price_min":
+                object_list = object_list.order_by("price")
+            elif sort_type == "price_max":
+                object_list = object_list.order_by("-price")
+            elif sort_type == "date":
+                object_list = object_list.order_by("-id")
+            elif sort_type == "review":
+                object_list = object_list.annotate(
+                    avg_rate=Avg("review__rate")
+                ).order_by("-avg_rate")
             return object_list
         if self.request.method == "GET":
             return Goods.objects.filter(
