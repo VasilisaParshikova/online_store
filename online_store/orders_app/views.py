@@ -134,7 +134,9 @@ class MakeOrder(View):
 
         for item in items_list:
             item.order = order
-            item.save()
+            item.save(update_fields=['order'])
+            item.goods.was_bought_times += item.amount
+            item.goods.save(update_fields=['was_bought_times'])
         link_path = f"/makeorder/payment{order.id}"
         return HttpResponseRedirect(link_path)
 

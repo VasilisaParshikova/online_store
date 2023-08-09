@@ -25,8 +25,20 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="toggle" for="sort">Сортировать по:  </label>
+                                        <select class="form-input form-input_full" name="sort" id="sort" >
+                                            <option value="base" {% if sort_type == 'base' %} selected="selected" {% endif %}>по умолчанию</option>
+                                          <option value="pop" {% if sort_type == 'pop' %} selected="selected" {% endif %}>популярности</option>
+                                          <option value="review" {% if sort_type == 'review' %} selected="selected" {% endif %}>рейтингу на основе отзывов</option>
+                                            <option value="price_min" {% if sort_type == 'price_min' %} selected="selected" {% endif %}>цене (сначала дешёвые)</option>
+                                            <option value="price_max" {% if sort_type == 'price_max' %} selected="selected" {% endif %}>цене (сначала дорогие)</option>
+                                            <option value="date" {% if sort_type == 'date' %} selected="selected" {% endif %}>новизне</option>
+                                        </select>
+
+                                </div>
+                                <div class="form-group">
                                     <input class="form-input form-input_full" id="title" name="title" type="text"
-                                           placeholder="Название"/>
+                                           placeholder="Название" {% if search_name %} value="{{ search_name }}" {% endif %}/>
                                 </div>
                                 <div class="form-group">
                                     <!-- - var options = setOptions(items, ['value', 'selected', 'disabled']);-->
@@ -66,14 +78,7 @@
                     </div>
                 </div>
                 <div class="Section-content">
-                    <div class="Sort">
-                        <div class="Sort-title">Сортировать по:
-                        </div>
-                        <div class="Sort-variants"><a class="Sort-sortBy Sort-sortBy_dec" href="/catalog?objects=1">Популярности</a><a
-                                class="Sort-sortBy" href="#">Цене</a><a class="Sort-sortBy" href="#">Отзывам</a><a
-                                class="Sort-sortBy Sort-sortBy_inc" href="#">Новизне</a>
-                        </div>
-                    </div>
+
                     <div class="Cards">
                         {% for product in page_obj %}
                             <div class="Card"><a class="Card-picture" href="catalog/product{{ product.id }}">

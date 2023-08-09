@@ -14,7 +14,6 @@ import operator
 from django.http import Http404
 from django.utils.translation import gettext as _
 
-
 class MainPage(TemplateView):
     template_name = "shop_app/index.html"
 
@@ -61,12 +60,16 @@ class Catalog(ListView):
         context["max_price"] = prices["price__max"]
         company_list = list(Company.objects.all())
         context["company_list"] = company_list
+        if self.request.session.get("sort_type") != None:
+            context["sort_type"] = self.request.session["sort_type"]
         if len(objects) == len(all_goods):
             context["category_list"] = Category.objects.filter(
                 parent_category__isnull=True
             )
             context["selected_min_price"] = prices["price__min"]
             context["selected_max_price"] = prices["price__max"]
+            if self.request.session.get("search_name") != None:
+                context["search_name"] = ''
         else:
             selected_companies = []
             categories = []
@@ -89,6 +92,9 @@ class Catalog(ListView):
             context["selected_min_price"] = selected_prices["price__min"]
             context["selected_max_price"] = selected_prices["price__max"]
             context["category_list"] = categories
+            if self.request.session.get("search_name") != None:
+                context["search_name"] = self.request.session["search_name"]
+
         return context
 
     def get_queryset(self):
@@ -99,7 +105,9 @@ class Catalog(ListView):
                 price = [int(x) for x in price.split(";")]
                 object_list = object_list.filter(price__range=(price[0], price[1]))
             title = self.request.POST.get("title")
+
             if title != "":
+                self.request.session["search_name"] = title
                 title = title.split(" ")
                 object_list = object_list.filter(
                     reduce(operator.or_, (Q(title__icontains=x) for x in title))
@@ -107,9 +115,20 @@ class Catalog(ListView):
             companies = self.request.POST.getlist("company")
             if companies:
                 object_list = object_list.filter(company__title__in=companies)
+            sort_type = self.request.POST.get("sort")
+            self.request.session["sort_type"] = sort_type
+            if sort_type == 'pop':
+                object_list = object_list.order_by('-was_bought_times')
+            elif sort_type == 'price_min':
+                 object_list = object_list.order_by('price')
+            elif sort_type == 'price_max':
+                object_list = object_list.order_by('-price')
+            elif sort_type == 'date':
+                object_list = object_list.order_by('-id')
+            elif sort_type == 'review':
+                object_list = object_list.annotate(avg_rate = Avg("review__rate")).order_by('-avg_rate')
             return object_list
         if self.request.method == "GET":
-            print(self.request.POST)
             return Goods.objects.all()
 
     def post(self, *args, **kwargs):
@@ -194,12 +213,16 @@ class CategoryView(ListView):
             if good.company and not good.company in company_list:
                 company_list.append(good.company)
         context["company_list"] = company_list
+        if self.request.session.get("sort_type") != None:
+            context["sort_type"] = self.request.session["sort_type"]
         if len(objects) == len(all_goods):
             context["category_list"] = Category.objects.filter(
                 Q(id=pk) | Q(parent_category__id=pk)
             )
             context["selected_min_price"] = prices["price__min"]
             context["selected_max_price"] = prices["price__max"]
+            if self.request.session.get("search_name_cat") != None:
+                context["search_name"] = ''
         else:
             selected_companies = []
             categories = []
@@ -219,6 +242,8 @@ class CategoryView(ListView):
             context["selected_min_price"] = selected_prices["price__min"]
             context["selected_max_price"] = selected_prices["price__max"]
             context["category_list"] = categories
+            if self.request.session.get("search_name_cat") != None:
+                context["search_name"] = self.request.session["search_name_cat"]
         return context
 
     def get_queryset(self, pk):
@@ -232,6 +257,7 @@ class CategoryView(ListView):
                 object_list = object_list.filter(price__range=(price[0], price[1]))
             title = self.request.POST.get("title")
             if title != "":
+                self.request.session["search_name_cat"] = title
                 title = title.split(" ")
                 object_list = object_list.filter(
                     reduce(operator.or_, (Q(title__icontains=x) for x in title))
@@ -239,6 +265,18 @@ class CategoryView(ListView):
             companies = self.request.POST.getlist("company")
             if companies:
                 object_list = object_list.filter(company__title__in=companies)
+            sort_type = self.request.POST.get("sort")
+            self.request.session["sort_type"] = sort_type
+            if sort_type == 'pop':
+                object_list = object_list.order_by('-was_bought_times')
+            elif sort_type == 'price_min':
+                object_list = object_list.order_by('price')
+            elif sort_type == 'price_max':
+                object_list = object_list.order_by('-price')
+            elif sort_type == 'date':
+                object_list = object_list.order_by('-id')
+            elif sort_type == 'review':
+                object_list = object_list.annotate(avg_rate=Avg("review__rate")).order_by('-avg_rate')
             return object_list
         if self.request.method == "GET":
             return Goods.objects.filter(
@@ -247,6 +285,5 @@ class CategoryView(ListView):
 
     def post(self, *args, **kwargs):
         pk = kwargs.get("pk")
-        print(pk)
 
         return self.get(self.request, pk)
